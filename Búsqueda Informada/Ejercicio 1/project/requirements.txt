@@ -1,0 +1,4 @@
+# This project uses only the Python standard library.
+# Keep this file so the venv workflow matches the other course projects.
+# Add packages here if you later need them, then:
+#   python -m pip install -r requirements.txt

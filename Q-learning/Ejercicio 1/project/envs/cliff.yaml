@@ -1,0 +1,17 @@
+name: Cliff (Sutton & Barto)
+kind: grid
+rows: 3
+cols: 5
+start: [2, 0]
+goal: [2, 4]
+cliffs: [[2, 1], [2, 2], [2, 3]]
+goal_reward: 0.0
+cliff_reward: -100.0
+step_reward: -1.0
+actions: [N, E, S, W]
+alpha: 0.5
+gamma: 1.0
+epsilon: 0.1
+episodes: 500
+max_steps: 80
+seed: 1

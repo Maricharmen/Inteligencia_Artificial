@@ -1,0 +1,30 @@
+# AIMA "West is a criminal" definite-clause KB.
+# Quote any atom that contains commas so YAML does not split it.
+
+facts:
+  - American(West)
+  - Missile(M1)
+  - "Owns(Nono, M1)"
+  - "Enemy(Nono, America)"
+
+rules:
+  - id: R_criminal
+    if:
+      - American(x)
+      - Weapon(y)
+      - "Sells(x, y, z)"
+      - Hostile(z)
+    then: Criminal(x)
+  - id: R_weapon
+    if: [Missile(x)]
+    then: Weapon(x)
+  - id: R_hostile
+    if: ["Enemy(x, America)"]
+    then: Hostile(x)
+  - id: R_sells
+    if:
+      - Missile(x)
+      - "Owns(Nono, x)"
+    then: "Sells(West, x, Nono)"
+
+query: Criminal(West)

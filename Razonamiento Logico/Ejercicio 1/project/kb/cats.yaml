@@ -1,0 +1,21 @@
+# Default KB from the lecture. Edit this file, then rerun the programs.
+#
+# Variables start with a lowercase letter: x, y, z
+# Constants start with an uppercase letter: Tom, Felix, West
+
+facts:
+  - Gato(Tom)
+  - Gato(Felix)
+
+rules:
+  - id: R1
+    if: [Gato(x)]
+    then: Animal(x)
+  - id: R2
+    if: [Animal(x)]
+    then: Mortal(x)
+  - id: R3
+    if: [Gato(x)]
+    then: Maulla(x)
+
+query: Mortal(Tom)

@@ -1,0 +1,143 @@
+Base de conocimiento
+================================================================
+Hechos:
+  Estudiante(Ana)
+  Estudiante(Luis)
+  Profesor(Marta)
+  TieneCredencial(Ana)
+  TieneCredencial(Marta)
+  HorarioNocturno(Hoy)
+Reglas (en orden):
+  R_miembro_est:  Estudiante(x) ∧ TieneCredencial(x)  ⇒  Miembro(x)
+  R_miembro_prof:  Profesor(x)  ⇒  Miembro(x)
+  R_acceso:  Miembro(x) ∧ HorarioNocturno(Hoy)  ⇒  AccesoNoche(x)
+  R_beca:  Estudiante(x) ∧ TieneCredencial(x)  ⇒  Becario(x)
+
+################################################################
+# CONSULTA: AccesoNoche(Ana)
+################################################################
+
+Encadenamiento hacia ADELANTE
+----------------------------------------------------------------
+Hechos iniciales: Estudiante(Ana), Estudiante(Luis), Profesor(Marta), TieneCredencial(Ana), TieneCredencial(Marta), HorarioNocturno(Hoy)
+--- ronda 1 ---
+  dispara R_miembro_est  {x/Ana}  ⇒  Miembro(Ana)
+  dispara R_miembro_prof  {x/Marta}  ⇒  Miembro(Marta)
+  dispara R_beca  {x/Ana}  ⇒  Becario(Ana)
+--- ronda 2 ---
+  dispara R_acceso  {x/Ana}  ⇒  AccesoNoche(Ana)
+  dispara R_acceso  {x/Marta}  ⇒  AccesoNoche(Marta)
+--- ronda 3 ---
+  sin átomos nuevos → punto fijo
+Consulta AccesoNoche(Ana): unifica con el hecho AccesoNoche(Ana)
+Átomos nuevos (en orden): Miembro(Ana), Miembro(Marta), Becario(Ana), AccesoNoche(Ana), AccesoNoche(Marta)
+Probada: SÍ
+
+Encadenamiento hacia ATRÁS
+----------------------------------------------------------------
+Consulta: AccesoNoche(Ana)
+meta   AccesoNoche(Ana)
+  regla R_acceso  {x/Ana}
+    meta   Miembro(Ana)
+      regla R_miembro_est  {x/Ana}
+        meta   Estudiante(Ana)
+          ✓ hecho Estudiante(Ana)
+        meta   TieneCredencial(Ana)
+          ✓ hecho TieneCredencial(Ana)
+    meta   HorarioNocturno(Hoy)
+      ✓ hecho HorarioNocturno(Hoy)
+Metas visitadas: AccesoNoche(Ana), Miembro(Ana), Estudiante(Ana), TieneCredencial(Ana), HorarioNocturno(Hoy)
+Probada: SÍ
+
+Trabajo extra de adelante (no visitado por atrás): Miembro(Marta), Becario(Ana), AccesoNoche(Marta)
+
+################################################################
+# CONSULTA: AccesoNoche(Luis)
+################################################################
+
+Encadenamiento hacia ADELANTE
+----------------------------------------------------------------
+Hechos iniciales: Estudiante(Ana), Estudiante(Luis), Profesor(Marta), TieneCredencial(Ana), TieneCredencial(Marta), HorarioNocturno(Hoy)
+--- ronda 1 ---
+  dispara R_miembro_est  {x/Ana}  ⇒  Miembro(Ana)
+  dispara R_miembro_prof  {x/Marta}  ⇒  Miembro(Marta)
+  dispara R_beca  {x/Ana}  ⇒  Becario(Ana)
+--- ronda 2 ---
+  dispara R_acceso  {x/Ana}  ⇒  AccesoNoche(Ana)
+  dispara R_acceso  {x/Marta}  ⇒  AccesoNoche(Marta)
+--- ronda 3 ---
+  sin átomos nuevos → punto fijo
+Consulta AccesoNoche(Luis): no unifica con ningún hecho
+Átomos nuevos (en orden): Miembro(Ana), Miembro(Marta), Becario(Ana), AccesoNoche(Ana), AccesoNoche(Marta)
+Probada: NO
+
+Encadenamiento hacia ATRÁS
+----------------------------------------------------------------
+Consulta: AccesoNoche(Luis)
+meta   AccesoNoche(Luis)
+  regla R_acceso  {x/Luis}
+    meta   Miembro(Luis)
+      regla R_miembro_est  {x/Luis}
+        meta   Estudiante(Luis)
+          ✓ hecho Estudiante(Luis)
+        meta   TieneCredencial(Luis)
+          ✗ falla TieneCredencial(Luis)
+      ✗ R_miembro_est falla para Miembro(Luis)
+      regla R_miembro_prof  {x/Luis}
+        meta   Profesor(Luis)
+          ✗ falla Profesor(Luis)
+      ✗ R_miembro_prof falla para Miembro(Luis)
+      ✗ falla Miembro(Luis)
+  ✗ R_acceso falla para AccesoNoche(Luis)
+  ✗ falla AccesoNoche(Luis)
+Metas visitadas: AccesoNoche(Luis), Miembro(Luis), Estudiante(Luis), TieneCredencial(Luis), Profesor(Luis)
+Probada: NO
+
+Trabajo extra de adelante (no visitado por atrás): Miembro(Ana), Miembro(Marta), Becario(Ana), AccesoNoche(Ana), AccesoNoche(Marta)
+
+################################################################
+# CONSULTA: AccesoNoche(Marta)
+################################################################
+
+Encadenamiento hacia ADELANTE
+----------------------------------------------------------------
+Hechos iniciales: Estudiante(Ana), Estudiante(Luis), Profesor(Marta), TieneCredencial(Ana), TieneCredencial(Marta), HorarioNocturno(Hoy)
+--- ronda 1 ---
+  dispara R_miembro_est  {x/Ana}  ⇒  Miembro(Ana)
+  dispara R_miembro_prof  {x/Marta}  ⇒  Miembro(Marta)
+  dispara R_beca  {x/Ana}  ⇒  Becario(Ana)
+--- ronda 2 ---
+  dispara R_acceso  {x/Ana}  ⇒  AccesoNoche(Ana)
+  dispara R_acceso  {x/Marta}  ⇒  AccesoNoche(Marta)
+--- ronda 3 ---
+  sin átomos nuevos → punto fijo
+Consulta AccesoNoche(Marta): unifica con el hecho AccesoNoche(Marta)
+Átomos nuevos (en orden): Miembro(Ana), Miembro(Marta), Becario(Ana), AccesoNoche(Ana), AccesoNoche(Marta)
+Probada: SÍ
+
+Encadenamiento hacia ATRÁS
+----------------------------------------------------------------
+Consulta: AccesoNoche(Marta)
+meta   AccesoNoche(Marta)
+  regla R_acceso  {x/Marta}
+    meta   Miembro(Marta)
+      regla R_miembro_est  {x/Marta}
+        meta   Estudiante(Marta)
+          ✗ falla Estudiante(Marta)
+      ✗ R_miembro_est falla para Miembro(Marta)
+      regla R_miembro_prof  {x/Marta}
+        meta   Profesor(Marta)
+          ✓ hecho Profesor(Marta)
+    meta   HorarioNocturno(Hoy)
+      ✓ hecho HorarioNocturno(Hoy)
+Metas visitadas: AccesoNoche(Marta), Miembro(Marta), Estudiante(Marta), Profesor(Marta), HorarioNocturno(Hoy)
+Probada: SÍ
+
+Trabajo extra de adelante (no visitado por atrás): Miembro(Ana), Becario(Ana), AccesoNoche(Ana)
+
+Resumen
+================================================================
+Consulta                Adelante   Atrás
+AccesoNoche(Ana)              SÍ      SÍ
+AccesoNoche(Luis)             NO      NO
+AccesoNoche(Marta)            SÍ      SÍ

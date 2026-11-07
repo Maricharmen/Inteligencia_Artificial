@@ -1,0 +1,61 @@
+Base de conocimiento
+================================================================
+Hechos:
+  Estudiante(Ana)
+  Estudiante(Luis)
+  Profesor(Marta)
+  TieneCredencial(Ana)
+  TieneCredencial(Marta)
+  HorarioNocturno(Hoy)
+  TieneCredencial(Luis)
+Reglas (en orden):
+  R_miembro_est:  Estudiante(x) ∧ TieneCredencial(x)  ⇒  Miembro(x)
+  R_miembro_prof:  Profesor(x)  ⇒  Miembro(x)
+  R_acceso:  Miembro(x) ∧ HorarioNocturno(Hoy)  ⇒  AccesoNoche(x)
+  R_beca:  Estudiante(x) ∧ TieneCredencial(x)  ⇒  Becario(x)
+
+################################################################
+# CONSULTA: AccesoNoche(Luis)
+################################################################
+
+Encadenamiento hacia ADELANTE
+----------------------------------------------------------------
+Hechos iniciales: Estudiante(Ana), Estudiante(Luis), Profesor(Marta), TieneCredencial(Ana), TieneCredencial(Marta), HorarioNocturno(Hoy), TieneCredencial(Luis)
+--- ronda 1 ---
+  dispara R_miembro_est  {x/Ana}  ⇒  Miembro(Ana)
+  dispara R_miembro_est  {x/Luis}  ⇒  Miembro(Luis)
+  dispara R_miembro_prof  {x/Marta}  ⇒  Miembro(Marta)
+  dispara R_beca  {x/Ana}  ⇒  Becario(Ana)
+  dispara R_beca  {x/Luis}  ⇒  Becario(Luis)
+--- ronda 2 ---
+  dispara R_acceso  {x/Ana}  ⇒  AccesoNoche(Ana)
+  dispara R_acceso  {x/Luis}  ⇒  AccesoNoche(Luis)
+  dispara R_acceso  {x/Marta}  ⇒  AccesoNoche(Marta)
+--- ronda 3 ---
+  sin átomos nuevos → punto fijo
+Consulta AccesoNoche(Luis): unifica con el hecho AccesoNoche(Luis)
+Átomos nuevos (en orden): Miembro(Ana), Miembro(Luis), Miembro(Marta), Becario(Ana), Becario(Luis), AccesoNoche(Ana), AccesoNoche(Luis), AccesoNoche(Marta)
+Probada: SÍ
+
+Encadenamiento hacia ATRÁS
+----------------------------------------------------------------
+Consulta: AccesoNoche(Luis)
+meta   AccesoNoche(Luis)
+  regla R_acceso  {x/Luis}
+    meta   Miembro(Luis)
+      regla R_miembro_est  {x/Luis}
+        meta   Estudiante(Luis)
+          ✓ hecho Estudiante(Luis)
+        meta   TieneCredencial(Luis)
+          ✓ hecho TieneCredencial(Luis)
+    meta   HorarioNocturno(Hoy)
+      ✓ hecho HorarioNocturno(Hoy)
+Metas visitadas: AccesoNoche(Luis), Miembro(Luis), Estudiante(Luis), TieneCredencial(Luis), HorarioNocturno(Hoy)
+Probada: SÍ
+
+Trabajo extra de adelante (no visitado por atrás): Miembro(Ana), Miembro(Marta), Becario(Ana), Becario(Luis), AccesoNoche(Ana), AccesoNoche(Marta)
+
+Resumen
+================================================================
+Consulta                Adelante   Atrás
+AccesoNoche(Luis)             SÍ      SÍ
